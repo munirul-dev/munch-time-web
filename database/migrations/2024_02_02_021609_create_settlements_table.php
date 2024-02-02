@@ -13,7 +13,15 @@ return new class extends Migration
     {
         Schema::create('settlements', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('user_id');
+            $table->json('payment_data');
+            $table->float('amount', 8, 2)->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users');
+
+            $table->index('user_id');
         });
     }
 

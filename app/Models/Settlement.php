@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class Settlement extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'user_id',
+        'payment_data',
+        'amount',
+        'status',
+    ];
+
+    protected $casts = [
+        'payment_data' => 'array',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

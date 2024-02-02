@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('category');
+            $table->float('price', 8, 2)->default(0);
+            $table->integer('quantity')->default(0);
+            $table->text('image')->nullable();
+            $table->text('description')->nullable();
+            $table->text('ingredient')->nullable();
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
         });
     }
