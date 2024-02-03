@@ -22,54 +22,28 @@ class UserSeeder extends Seeder
         ]);
         $user->assignRole('admin');
 
-        $user = User::updateOrCreate([
-            'email' => 'worker1@munchtime.com',
-        ], [
-            'name' => 'Canteen Worker 1',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'status' => true,
-        ]);
-        $user->assignRole('canteen-worker');
-
-        $user = User::updateOrCreate([
-            'email' => 'worker2@munchtime.com',
-        ], [
-            'name' => 'Canteen Worker 2',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'status' => true,
-        ]);
-        $user->assignRole('canteen-worker');
-
-        $user = User::updateOrCreate([
-            'email' => 'parent1@munchtime.com',
-        ], [
-            'name' => 'Parent 1',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'status' => true,
-        ]);
-        $user->assignRole('parent');
-
-        $user = User::updateOrCreate([
-                'email' => 'parent2@munchtime.com',
+        for ($count = 1; $count <= 2; $count++) {
+            $user = User::updateOrCreate([
+                'email' => "worker{$count}@munchtime.com",
             ], [
-                'name' => 'Parent 2',
+                'name' => "Canteen Worker $count",
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'status' => true,
             ]);
-        $user->assignRole('parent');
+            $user->assignRole('canteen-worker');
+        }
 
-        $user = User::updateOrCreate([
-            'email' => 'parent3@munchtime.com',
-        ], [
-            'name' => 'Parent 3',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password'),
-            'status' => true,
-        ]);
-        $user->assignRole('parent');
+        for ($count = 1; $count <= 3; $count++) {
+            $user = User::updateOrCreate([
+                'email' => "parent{$count}@munchtime.com",
+            ], [
+                'name' => "Parent $count",
+                'email_verified_at' => now(),
+                'password' => bcrypt('password'),
+                'status' => true,
+            ]);
+            $user->assignRole('parent');
+        }
     }
 }
