@@ -20,7 +20,7 @@ class Menu extends Model
         'status',
     ];
 
-    public function reservation()
+    public function reservations()
     {
         return $this->hasMany(Reservation::class);
     }

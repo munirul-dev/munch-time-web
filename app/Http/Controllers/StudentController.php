@@ -7,59 +7,82 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => auth()->user()->students,
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            $student = Student::create([
+                'user_id' => auth()->user()->id,
+                'name' => $request->name,
+                'year_level' => $request->year_level,
+                'class_name' => $request->class_name,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Student created successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function edit(Request $request)
     {
-        //
+        try {
+            return response()->json([
+                'success' => true,
+                'data' => auth()->user()->students()->where('id', $request->id)->firstOrFail(),
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Student $student)
+    public function update(Request $request)
     {
-        //
+        try {
+            $student = auth()->user()->students()->where('id', $request->id)->firstOrFail();
+            $student->update([
+                'name' => $request->name,
+                'year_level' => $request->year_level,
+                'class_name' => $request->class_name,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Student $student)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Student $student)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Student $student)
-    {
-        //
+        try {
+            $student = auth()->user()->students()->where('id', $request->id)->firstOrFail();
+            $student->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Student deleted successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 }
