@@ -1,6 +1,12 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\SettlementController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +20,54 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::prefix('auth')->name('auth.')->group(function () {
+    Route::post('login', [AuthController::class, 'login']);
+    Route::post('forgot', [AuthController::class, 'forgot']); // TODO
+    Route::post('reset', [AuthController::class, 'reset']); // TODO
+});
+
+Route::middleware(['auth:sanctum'])->prefix('user')->name('user.')->group(function () {
+    Route::post('index', [UserController::class, 'index']);
+    Route::post('create', [UserController::class, 'create']);
+    Route::post('edit', [UserController::class, 'edit']);
+    Route::post('update', [UserController::class, 'update']);
+    Route::post('destroy', [UserController::class, 'destroy']);
+    Route::post('updateProfile', [UserController::class, 'updateProfile']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('student')->name('student.')->group(function () {
+    Route::post('index', [StudentController::class, 'index']);
+    Route::post('create', [StudentController::class, 'create']);
+    Route::post('edit', [StudentController::class, 'edit']);
+    Route::post('update', [StudentController::class, 'update']);
+    Route::post('destroy', [StudentController::class, 'destroy']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('menu')->name('menu.')->group(function () {
+    Route::post('index', [MenuController::class, 'index']);
+    Route::post('create', [MenuController::class, 'create']);
+    Route::post('edit', [MenuController::class, 'edit']);
+    Route::post('update', [MenuController::class, 'update']);
+    Route::post('destroy', [MenuController::class, 'destroy']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('reservation')->name('reservation.')->group(function () {
+    Route::post('index', [ReservationController::class, 'index']);
+    Route::post('create', [ReservationController::class, 'create']);
+    Route::post('edit', [ReservationController::class, 'edit']);
+    Route::post('delete', [ReservationController::class, 'delete']);
+    Route::post('scanQR', [ReservationController::class, 'scanQR']);
+    Route::post('redeem', [ReservationController::class, 'redeem']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('payment')->name('payment.')->group(function () {
+    Route::post('index', [PaymentController::class, 'index']);
+    Route::post('makePayment', [PaymentController::class, 'makePayment']);
+    Route::post('fetchPaymentStatus', [PaymentController::class, 'fetchPaymentStatus']);
+});
+
+Route::middleware(['auth:sanctum'])->prefix('settlement')->name('settlement.')->group(function () {
+    Route::post('index', [SettlementController::class, 'index']);
+    Route::post('makeWithdrawal', [SettlementController::class, 'makeWithdrawal']);
+    Route::post('processWithdrawal', [SettlementController::class, 'processWithdrawal']);
 });
