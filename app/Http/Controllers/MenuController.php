@@ -7,59 +7,95 @@ use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return response()->json([
+            'success' => true,
+            'data' => Menu::all(),
+        ], 200);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        try {
+            $menu = Menu::create([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'image' => $request->image,
+                'description' => $request->description,
+                'ingredient' => $request->ingredient,
+                'status' => $request->status,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu created successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function edit(Request $request)
     {
-        //
+        try {
+            return response()->json([
+                'success' => true,
+                'data' => Menu::where('id', $request->id)->firstOrFail(),
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Menu $menu)
+    public function update(Request $request)
     {
-        //
+        try {
+            $menu = Menu::where('id', $request->id)->firstOrFail();
+            $menu->update([
+                'name' => $request->name,
+                'category' => $request->category,
+                'price' => $request->price,
+                'quantity' => $request->quantity,
+                'image' => $request->image,
+                'description' => $request->description,
+                'ingredient' => $request->ingredient,
+                'status' => $request->status,
+            ]);
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu updated successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Menu $menu)
+    public function destroy(Request $request)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Menu $menu)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Menu $menu)
-    {
-        //
+        try {
+            Menu::findOrFail($request->id)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => 'Menu deleted successfully',
+            ], 200);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage(),
+            ], 400);
+        }
     }
 }
