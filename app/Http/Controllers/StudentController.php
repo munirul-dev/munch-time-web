@@ -72,8 +72,7 @@ class StudentController extends Controller
     public function destroy(Request $request)
     {
         try {
-            $student = auth()->user()->students()->where('id', $request->id)->firstOrFail();
-            $student->delete();
+            $student = auth()->user()->students()->where('id', $request->id)->firstOrFail()->delete();
             return response()->json([
                 'success' => true,
                 'message' => 'Student deleted successfully',
