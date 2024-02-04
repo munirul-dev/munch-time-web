@@ -26,6 +26,10 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('reset', [AuthController::class, 'reset']); // TODO
 });
 
+Route::middleware(['auth:sanctum'])->prefix('auth')->name('auth.')->group(function () {
+    Route::post('logout', [AuthController::class, 'logout']);
+});
+
 Route::middleware(['auth:sanctum'])->prefix('user')->name('user.')->group(function () {
     Route::post('index', [UserController::class, 'index']);
     Route::post('create', [UserController::class, 'create']);
