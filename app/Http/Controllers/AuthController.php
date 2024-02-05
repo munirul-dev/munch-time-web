@@ -5,11 +5,26 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
+    public function validator(Request $request)
+    {
+        $token = $request->bearerToken();
+        if (empty($token)) {
+            return response()->json(['status' => false, 'message' => 'You are not authenticated.'], 401);
+        }
+
+        if (!Auth::user()->tokens()) {
+            return response()->json(['status' => false, 'message' => 'Your session has ended or expired. Please login again.'], 419);
+        }
+
+        return response()->json(['status' => 'success', 'user' => new UserResource(Auth::user())], 200);
+    }
+
     public function login(LoginRequest $request)
     {
         try {
@@ -25,9 +40,15 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User logged in successfully',
-                'token' => $user->createToken(Hash::make($user->email))->plainTextToken,
-                'data' => new UserResource($user),
-            ], 200);
+                'user' => [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'status' => $user->status,
+                    'roles' => $user->roles()->get()->pluck("name")->first(),
+                    'token' => $user->createToken(Hash::make($user->email))->plainTextToken,
+                ],
+            ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,

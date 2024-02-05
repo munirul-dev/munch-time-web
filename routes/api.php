@@ -24,10 +24,13 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('forgot', [AuthController::class, 'forgot']); // TODO
     Route::post('reset', [AuthController::class, 'reset']); // TODO
+    Route::post('register', [AuthController::class, 'register']); // TODO
 });
 
 Route::middleware(['auth:sanctum'])->prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
+    Route::post('validate', [AuthController::class, 'validator']);
+    Route::post('updateProfile', [UserController::class, 'updateProfile']);
 });
 
 Route::middleware(['auth:sanctum'])->prefix('user')->name('user.')->group(function () {
@@ -36,7 +39,6 @@ Route::middleware(['auth:sanctum'])->prefix('user')->name('user.')->group(functi
     Route::post('edit', [UserController::class, 'edit']);
     Route::post('update', [UserController::class, 'update']);
     Route::post('destroy', [UserController::class, 'destroy']);
-    Route::post('updateProfile', [UserController::class, 'updateProfile']);
 });
 
 Route::middleware(['auth:sanctum'])->prefix('student')->name('student.')->group(function () {
@@ -59,7 +61,7 @@ Route::middleware(['auth:sanctum'])->prefix('reservation')->name('reservation.')
     Route::post('index', [ReservationController::class, 'index']);
     Route::post('create', [ReservationController::class, 'create']);
     Route::post('edit', [ReservationController::class, 'edit']);
-    Route::post('delete', [ReservationController::class, 'delete']);
+    Route::post('destroy', [ReservationController::class, 'destroy']);
     Route::post('scanQR', [ReservationController::class, 'scanQR']);
     Route::post('redeem', [ReservationController::class, 'redeem']);
 });
