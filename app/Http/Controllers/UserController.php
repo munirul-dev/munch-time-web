@@ -48,10 +48,17 @@ class UserController extends Controller
                 'message' => 'User created successfully',
             ]);
         } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => $th->getMessage(),
-            ], 400);
+            if ($th->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User cannot be created because it already exists',
+                ], 400);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $th->getMessage(),
+                ], 400);
+            }
         }
     }
 
@@ -106,10 +113,17 @@ class UserController extends Controller
                 'message' => 'User deleted successfully',
             ]);
         } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => $th->getMessage(),
-            ], 400);
+            if ($th->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'User cannot be deleted because it has related child data',
+                ], 400);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $th->getMessage(),
+                ], 400);
+            }
         }
     }
 }

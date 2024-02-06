@@ -11,7 +11,7 @@ class MenuController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => Menu::all(),
+            'data' => Menu::orderBy('category', 'DESC')->get(),
         ], 200);
     }
 
@@ -23,7 +23,7 @@ class MenuController extends Controller
                 'category' => $request->category,
                 'price' => $request->price,
                 'quantity' => $request->quantity,
-                'image' => $request->image,
+                // 'image' => $request->image,
                 'description' => $request->description,
                 'ingredient' => $request->ingredient,
                 'status' => $request->status,
@@ -65,7 +65,7 @@ class MenuController extends Controller
                 'category' => $request->category,
                 'price' => $request->price,
                 'quantity' => $request->quantity,
-                'image' => $request->image,
+                // 'image' => $request->image,
                 'description' => $request->description,
                 'ingredient' => $request->ingredient,
                 'status' => $request->status,
