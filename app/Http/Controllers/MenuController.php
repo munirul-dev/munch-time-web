@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        return response()->json([
-            'success' => true,
-            'data' => Menu::orderBy('category', 'DESC')->get(),
-        ], 200);
+        if ($request->status == 'all') {
+            return response()->json([
+                'success' => true,
+                'data' => MenuResource::collection(Menu::orderBy('category', 'DESC')->get()),
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => true,
+                'data' => MenuResource::collection(Menu::where('status', 1)->orderBy('category', 'DESC')->get()),
+            ], 200);
+        }
     }
 
     public function create(Request $request)
@@ -46,7 +55,7 @@ class MenuController extends Controller
         try {
             return response()->json([
                 'success' => true,
-                'data' => Menu::where('id', $request->id)->firstOrFail(),
+                'data' => new MenuResource(Menu::where('id', $request->id)->firstOrFail()),
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -86,7 +95,12 @@ class MenuController extends Controller
     public function destroy(Request $request)
     {
         try {
-            Menu::findOrFail($request->id)->delete();
+            $menu = Menu::findOrFail($request->id);
+            if ($menu->image) {
+                Storage::delete('public/menus/' . $menu->image);
+            }
+            $menu->delete();
+
             return response()->json([
                 'success' => true,
                 'message' => 'Menu deleted successfully',

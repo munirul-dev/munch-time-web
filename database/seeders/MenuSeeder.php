@@ -13,7 +13,7 @@ class MenuSeeder extends Seeder
     public function run(): void
     {
         // Rice
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Nasi Lemak',
             'category' => 'Rice',
         ], [
@@ -24,8 +24,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, egg, anchovies',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Nasi Ayam',
             'category' => 'Rice',
         ], [
@@ -36,8 +39,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, chicken, cucumber, soup',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Rice',
             'category' => 'Rice',
         ], [
@@ -48,8 +54,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, egg, chicken',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Rice',
             'category' => 'Rice',
         ], [
@@ -60,8 +69,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, egg, chicken',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Seafood Fried Rice',
             'category' => 'Rice',
         ], [
@@ -72,8 +84,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, egg, shrimp, squid',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Special Fried Rice',
             'category' => 'Rice',
         ], [
@@ -84,9 +99,12 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Rice, egg, chicken, shrimp, squid',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
         // Noodles
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Noodles',
             'category' => 'Noodles',
         ], [
@@ -97,8 +115,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Noodles, egg, chicken',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Noodles Seafood',
             'category' => 'Noodles',
         ], [
@@ -109,8 +130,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Noodles, egg, shrimp, squid',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Noodles Special',
             'category' => 'Noodles',
         ], [
@@ -121,9 +145,12 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Noodles, egg, chicken, shrimp, squid',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
         // Sides
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Ayam Goreng',
             'category' => 'Sides',
         ], [
@@ -134,8 +161,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Chicken',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Chicken Nuggets',
             'category' => 'Sides',
         ], [
@@ -146,8 +176,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Chicken',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'French Fries',
             'category' => 'Sides',
         ], [
@@ -158,8 +191,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Potato',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fried Banana',
             'category' => 'Sides',
         ], [
@@ -170,9 +206,12 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Banana',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
         // Drinks
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Mineral Water',
             'category' => 'Drinks',
         ], [
@@ -183,8 +222,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Water',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Cold Water',
             'category' => 'Drinks',
         ], [
@@ -195,8 +237,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Water',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Hot Water',
             'category' => 'Drinks',
         ], [
@@ -207,9 +252,12 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Water',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
         // Diary
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Fresh Milk',
             'category' => 'Diary',
         ], [
@@ -220,9 +268,12 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Milk',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
         // Juice
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Orange Juice',
             'category' => 'Juice',
         ], [
@@ -233,8 +284,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Orange',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Apple Juice',
             'category' => 'Juice',
         ], [
@@ -245,8 +299,11 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Apple',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
 
-        Menu::updateOrCreate([
+        $menu = Menu::updateOrCreate([
             'name' => 'Mango Juice',
             'category' => 'Juice',
         ], [
@@ -257,5 +314,8 @@ class MenuSeeder extends Seeder
             'ingredient' => 'Mango',
             'status' => true,
         ]);
+        $menu->image = $menu->id . '.png';
+        $menu->save();
+        copy(public_path('menu_seeder/' . $menu->image), storage_path('app/public/menus/' . $menu->image));
     }
 }

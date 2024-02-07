@@ -24,7 +24,7 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('forgot', [AuthController::class, 'forgot']); // TODO
     Route::post('reset', [AuthController::class, 'reset']); // TODO
-    Route::post('register', [AuthController::class, 'register']); // TODO
+    Route::post('register', [AuthController::class, 'register']);
 });
 
 Route::middleware(['auth:sanctum'])->prefix('auth')->name('auth.')->group(function () {
