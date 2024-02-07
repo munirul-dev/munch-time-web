@@ -72,4 +72,34 @@ class AuthController extends Controller
             ], 500);
         }
     }
+
+    public function register(Request $request)
+    {
+        try {
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'email_verified_at' => now(),
+                'password' => bcrypt($request->password),
+                'status' => true,
+            ]);
+            $user->syncRoles('parent');
+            return response()->json([
+                'success' => true,
+                'message' => 'User created successfully',
+            ]);
+        } catch (\Throwable $th) {
+            if ($th->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Registration failed because the email it already exists',
+                ], 400);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $th->getMessage(),
+                ], 400);
+            }
+        }
+    }
 }

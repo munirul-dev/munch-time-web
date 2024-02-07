@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\StudentResource;
 use App\Models\Student;
 use Illuminate\Http\Request;
 
@@ -11,7 +12,7 @@ class StudentController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => auth()->user()->students,
+            'data' => StudentResource::collection(auth()->user()->students),
         ], 200);
     }
 
@@ -27,7 +28,7 @@ class StudentController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Student created successfully',
+                'message' => 'Child created successfully',
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -40,9 +41,10 @@ class StudentController extends Controller
     public function edit(Request $request)
     {
         try {
+            $data = auth()->user()->students()->where('id', $request->id)->firstOrFail();
             return response()->json([
                 'success' => true,
-                'data' => auth()->user()->students()->where('id', $request->id)->firstOrFail(),
+                'data' => StudentResource::make($data),
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -75,13 +77,20 @@ class StudentController extends Controller
             $student = auth()->user()->students()->where('id', $request->id)->firstOrFail()->delete();
             return response()->json([
                 'success' => true,
-                'message' => 'Student deleted successfully',
+                'message' => 'Child deleted successfully',
             ], 200);
         } catch (\Throwable $th) {
-            return response()->json([
-                'success' => false,
-                'message' => $th->getMessage(),
-            ], 400);
+            if ($th->getCode() == 23000) {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Child cannot be deleted because it has related reservation data',
+                ], 400);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $th->getMessage(),
+                ], 400);
+            }
         }
     }
 }
