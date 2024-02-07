@@ -59,7 +59,7 @@ Route::middleware(['auth:sanctum'])->prefix('menu')->name('menu.')->group(functi
 
 Route::middleware(['auth:sanctum'])->prefix('reservation')->name('reservation.')->group(function () {
     Route::post('index', [ReservationController::class, 'index']);
-    Route::post('create', [ReservationController::class, 'create']);
+    Route::post('create', [PaymentController::class, 'makePayment'])->name('makePayment');
     Route::post('edit', [ReservationController::class, 'edit']);
     Route::post('destroy', [ReservationController::class, 'destroy']);
     Route::post('scanQR', [ReservationController::class, 'scanQR']);

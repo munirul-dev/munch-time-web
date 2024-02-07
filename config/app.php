@@ -30,6 +30,10 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'media_expiry_minute' => 5,
+    'merchant_id' => env('MERCHANT_ID'),
+    'secret_key' => env('SECRET_KEY'),
+    'payment_url' => env('PAYMENT_URL'),
 
     /*
     |--------------------------------------------------------------------------

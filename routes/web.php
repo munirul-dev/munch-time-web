@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +16,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     abort(403);
+});
+
+Route::prefix('payment')->name('payment.')->group(function () {
+    Route::get('process', [PaymentController::class, 'process'])->name('process');
+    Route::get('return', [PaymentController::class, 'return'])->name('return');
+    Route::post('callback', [PaymentController::class, 'return'])->name('callback');
 });

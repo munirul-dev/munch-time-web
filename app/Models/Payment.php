@@ -30,4 +30,25 @@ class Payment extends Model
     {
         return $this->belongsTo(Reservation::class);
     }
+
+    public function getStatusText()
+    {
+        switch ($this->status) {
+            case 0:
+                return 'Failed';
+                break;
+
+            case 1:
+                return 'Successfull';
+                break;
+
+            case 2:
+                return 'Pending';
+                break;
+
+            default:
+                return 'Error';
+                break;
+        }
+    }
 }

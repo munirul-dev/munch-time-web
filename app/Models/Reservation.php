@@ -35,4 +35,23 @@ class Reservation extends Model
     {
         return $this->belongsTo(Menu::class);
     }
+
+    public function getStatusText() {
+        switch ($this->status) {
+            case 0:
+                return 'Unpaid';
+
+            case 1:
+                return 'Paid';
+
+            case 2:
+                return 'Cancelled';
+
+            case 3:
+                return 'Redeemed';
+
+            default:
+                return 'Unknown';
+        }
+    }
 }
