@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PaymentResource;
 use App\Http\Resources\ReservationResource;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
@@ -20,41 +21,28 @@ class ReservationController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Reservation $reservation)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Reservation $reservation)
+    public function edit(Request $request)
     {
-        //
+        try {
+            return response()->json([
+                'status' => true,
+                'data' => new ReservationResource(Reservation::findOrFail($request->id)),
+                'payment' => new PaymentResource(Reservation::findOrFail($request->id)->payment),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Reservation $reservation)
+    public function update(Request $request)
     {
         //
     }
@@ -62,8 +50,8 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Reservation $reservation)
+    public function destroy(Request $request)
     {
-        //
+        Reservation::where('id', $request->id)->update(['status' => 2]);
     }
 }

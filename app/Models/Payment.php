@@ -39,7 +39,7 @@ class Payment extends Model
                 break;
 
             case 1:
-                return 'Successfull';
+                return 'Successful';
                 break;
 
             case 2:

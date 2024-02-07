@@ -36,6 +36,11 @@ class Reservation extends Model
         return $this->belongsTo(Menu::class);
     }
 
+    public function payment()
+    {
+        return $this->hasOne(Payment::class);
+    }
+
     public function getStatusText() {
         switch ($this->status) {
             case 0:
