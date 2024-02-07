@@ -43,13 +43,48 @@ class PaymentController extends Controller
                 'reservation_id' => $reservation->id,
                 'order_id' => $orderId,
                 'amount' => $amount,
-                'status' => 0
+                'status' => 2
             ]);
 
             return response()->json([
                 'success' => true,
                 'data' => route('payment.process', [
                     'reservation_id' => $reservation->id,
+                    'user_id' => $user->id,
+                    'detail' => $detail,
+                    'amount' => $amount,
+                    'order_id' => $orderId,
+                    'hash' => $hashed_string
+                ])
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'success' => false,
+                'message' => $th->getMessage()
+            ], 500);
+        }
+    }
+
+    public function reattemptPayment(Request $request)
+    {
+        try {
+            $selectedReservation = Reservation::find($request->id);
+
+            $user = $selectedReservation->user;
+            $secretKey = config('app.secret_key');
+            $menuId = $selectedReservation->menu_id;
+            $menu = Menu::find($menuId);
+            $menuQuantity = $request->quantity;
+            $amount = $menuQuantity * $menu->price;
+            $detail = $menu->name;
+
+            $orderId = 'TRX-' . $selectedReservation->id . '-' . date('YmdHis'); // TRX-[USER_ID]-[SERVICE_ID]-[BOOKING_ID]-[DATE]
+            $hashed_string = hash_hmac('SHA256', $secretKey . $detail . $amount . $orderId, $secretKey);
+
+            return response()->json([
+                'success' => true,
+                'data' => route('payment.process', [
+                    'reservation_id' => $selectedReservation->id,
                     'user_id' => $user->id,
                     'detail' => $detail,
                     'amount' => $amount,
@@ -125,7 +160,7 @@ class PaymentController extends Controller
                             ]);
                             break;
 
-                            default:
+                        default:
                             // Success OR Pending Authorization
                             $payment->reservation->status = $data['txn_status'] == 1;
                             $payment->reservation->save();
