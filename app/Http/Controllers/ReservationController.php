@@ -16,7 +16,7 @@ class ReservationController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data' => ReservationResource::collection(Reservation::all()),
+            'data' => ReservationResource::collection(Reservation::latest()->get()),
         ]);
     }
 
