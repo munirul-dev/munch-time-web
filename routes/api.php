@@ -62,7 +62,7 @@ Route::middleware(['auth:sanctum'])->prefix('reservation')->name('reservation.')
     Route::post('create', [PaymentController::class, 'makePayment'])->name('makePayment');
     Route::post('repay', [PaymentController::class, 'reattemptPayment'])->name('reattemptPayment');
     Route::post('edit', [ReservationController::class, 'edit']);
-    Route::post('destroy', [ReservationController::class, 'destroy']);
+    Route::post('cancel', [ReservationController::class, 'cancel']);
     Route::post('scanQR', [ReservationController::class, 'scanQR']);
     Route::post('redeem', [ReservationController::class, 'redeem']);
 });
