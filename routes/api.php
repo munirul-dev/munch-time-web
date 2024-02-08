@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReservationController;
@@ -26,6 +27,11 @@ Route::prefix('auth')->name('auth.')->group(function () {
     Route::post('reset', [AuthController::class, 'reset']); // TODO
     Route::post('register', [AuthController::class, 'register']);
 });
+
+Route::middleware(['auth:sanctum'])->prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::post('/', [HomeController::class, 'dashboard']);
+});
+
 
 Route::middleware(['auth:sanctum'])->prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
