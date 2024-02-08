@@ -32,11 +32,17 @@ class MenuController extends Controller
                 'category' => $request->category,
                 'price' => $request->price,
                 'quantity' => $request->quantity,
-                // 'image' => $request->image,
                 'description' => $request->description,
                 'ingredient' => $request->ingredient,
                 'status' => $request->status,
             ]);
+
+            if (!empty($request->file)) {
+                $image = $request->file('file');
+                $image_name = $menu->id . '.' . $image->getClientOriginalExtension();
+                $image->storeAs("/", $image_name, 'Menus');
+                $menu->update(['image' => $image_name]);
+            }
 
             return response()->json([
                 'success' => true,
@@ -74,11 +80,25 @@ class MenuController extends Controller
                 'category' => $request->category,
                 'price' => $request->price,
                 'quantity' => $request->quantity,
-                // 'image' => $request->image,
                 'description' => $request->description,
                 'ingredient' => $request->ingredient,
                 'status' => $request->status,
             ]);
+
+            if (empty($request->image) && !empty($menu->image)) {
+                Storage::disk('Menus')->delete($menu->image);
+                $menu->update(['image' => null]);
+            }
+
+            if (!empty($request->file)) {
+                $image = $request->file('file');
+                $image_name = $menu->id . '.' . $image->getClientOriginalExtension();
+                if (!empty($menu->image)) {
+                    Storage::disk('Menus')->delete($menu->image);
+                }
+                $image->storeAs("/", $image_name, 'Menus');
+                $menu->update(['image' => $image_name]);
+            }
 
             return response()->json([
                 'success' => true,
@@ -97,7 +117,7 @@ class MenuController extends Controller
         try {
             $menu = Menu::findOrFail($request->id);
             if ($menu->image) {
-                Storage::delete('public/menus/' . $menu->image);
+                Storage::disk('Menus')->delete($menu->image);
             }
             $menu->delete();
 

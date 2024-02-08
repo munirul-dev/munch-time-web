@@ -44,6 +44,27 @@ return [
             'throw' => false,
         ],
 
+        'Menus' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/menus'),
+            'url' => env('APP_URL') . '/storage/menus',
+            'visibility' => 'public',
+        ],
+
+        'UserProfile' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/users'),
+            'url' => env('APP_URL') . '/storage/users',
+            'visibility' => 'public',
+        ],
+
+        'StudentProfile' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/students'),
+            'url' => env('APP_URL') . '/storage/students',
+            'visibility' => 'public',
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
