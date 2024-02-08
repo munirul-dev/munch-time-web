@@ -121,7 +121,7 @@ class PaymentController extends Controller
             'order_id' => $orderId,
             'name' => $user->name,
             'email' => $user->email,
-            'phone' => $user->mobile_phone_no,
+            'phone' => $user->tel,
             'hash' => $hashed_string
         ]);
     }
