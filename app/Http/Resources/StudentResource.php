@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Crypt;
 
 class StudentResource extends JsonResource
 {
@@ -23,6 +24,7 @@ class StudentResource extends JsonResource
             'allergies' => $this->allergies,
             'year_level' => $this->year_level,
             'class_name' => $this->class_name,
+            'qr_code' => 'https://api.qrserver.com/v1/create-qr-code/?size=512x512&data=' . Crypt::encryptString($this->id),
         ];
     }
 }
