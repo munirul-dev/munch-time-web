@@ -16,6 +16,7 @@ class UserSeeder extends Seeder
             'email' => 'admin@munchtime.com',
         ], [
             'name' => 'Admin',
+            'tel' => '0122000001',
             'email_verified_at' => now(),
             'password' => bcrypt('password'),
             'status' => true,
@@ -27,6 +28,7 @@ class UserSeeder extends Seeder
                 'email' => "worker{$count}@munchtime.com",
             ], [
                 'name' => "Canteen Worker $count",
+                'tel' => '012300000' . (string)$count,
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'status' => true,
@@ -39,6 +41,7 @@ class UserSeeder extends Seeder
                 'email' => "parent{$count}@munchtime.com",
             ], [
                 'name' => "Parent $count",
+                'tel' => '012400000' . (string)$count,
                 'email_verified_at' => now(),
                 'password' => bcrypt('password'),
                 'status' => true,

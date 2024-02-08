@@ -20,6 +20,10 @@ class StudentSeeder extends Seeder
                 Student::updateOrCreate([
                     'user_id' => $parent->id,
                     'name' => "Student P" . ($index + 1) . "-" . sprintf("%02d", ($count + 1)),
+                    'age' => 10 + $count,
+                    'year_level' => 'Darjah ' . ($count + 4),
+                    'class_name' => ($count + 4) . ' Bestari',
+                    'allergies' => 'None',
                 ]);
             }
         }

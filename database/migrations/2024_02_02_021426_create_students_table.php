@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->string('name');
+            $table->integer('age')->nullable()->default(0);
+            $table->string('allergies')->nullable();
             $table->string('year_level')->nullable();
             $table->string('class_name')->nullable();
             $table->timestamps();

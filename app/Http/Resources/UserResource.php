@@ -17,6 +17,8 @@ class UserResource extends JsonResource
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'tel' => $this->tel,
+            'profile_img' => !empty($this->profile_img) ? asset('storage/users/' . $this->profile_img) : "",
             'email' => $this->email,
             'status' => $this->status,
             'roles' => $this->roles()->get()->pluck("name")->first(),

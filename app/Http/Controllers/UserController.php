@@ -37,6 +37,7 @@ class UserController extends Controller
         try {
             $user = User::create([
                 'name' => $request->name,
+                'tel' => $request->tel,
                 'email' => $request->email,
                 'email_verified_at' => now(),
                 'password' => bcrypt($request->password),
@@ -84,6 +85,7 @@ class UserController extends Controller
             $user = User::findOrFail($request->id);
             $user->update([
                 'name' => $request->name,
+                'tel' => $request->tel,
                 'status' => $request->status,
             ]);
             if (!empty($request->password)) {

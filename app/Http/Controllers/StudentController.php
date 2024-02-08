@@ -22,8 +22,10 @@ class StudentController extends Controller
             $student = Student::create([
                 'user_id' => auth()->user()->id,
                 'name' => $request->name,
+                'age' => $request->age,
                 'year_level' => $request->year_level,
                 'class_name' => $request->class_name,
+                'allergies' => $request->allergies,
             ]);
 
             return response()->json([
@@ -60,8 +62,10 @@ class StudentController extends Controller
             $student = auth()->user()->students()->where('id', $request->id)->firstOrFail();
             $student->update([
                 'name' => $request->name,
+                'age' => $request->age,
                 'year_level' => $request->year_level,
                 'class_name' => $request->class_name,
+                'allergies' => $request->allergies,
             ]);
         } catch (\Throwable $th) {
             return response()->json([
