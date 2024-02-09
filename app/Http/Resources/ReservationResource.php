@@ -27,6 +27,8 @@ class ReservationResource extends JsonResource
             "amount_paid" => $this->amount_paid,
             "description" => $this->description,
             "status" => $this->status,
+            "created_at" => date("d/m/Y h:i A", strtotime($this->created_at)),
+            "updated_at" => date("d/m/Y h:i A", strtotime($this->updated_at)),
         ];
     }
 }

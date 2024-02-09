@@ -19,7 +19,7 @@ class ReservationController extends Controller
     {
         return response()->json([
             'status' => true,
-            'data' => ReservationResource::collection(Reservation::latest()->get()),
+            'data' => ReservationResource::collection(Reservation::orderBy('date', 'DESC')->get()),
         ]);
     }
 

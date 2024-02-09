@@ -41,7 +41,8 @@ class Reservation extends Model
         return $this->hasOne(Payment::class);
     }
 
-    public function getStatusText() {
+    public function getStatusText()
+    {
         switch ($this->status) {
             case 0:
                 return 'Unpaid';

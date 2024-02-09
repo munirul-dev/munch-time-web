@@ -32,7 +32,6 @@ Route::middleware(['auth:sanctum'])->prefix('dashboard')->name('dashboard.')->gr
     Route::post('/', [HomeController::class, 'dashboard']);
 });
 
-
 Route::middleware(['auth:sanctum'])->prefix('auth')->name('auth.')->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
     Route::post('validate', [AuthController::class, 'validator']);
@@ -80,7 +79,8 @@ Route::middleware(['auth:sanctum'])->prefix('payment')->name('payment.')->group(
 });
 
 Route::middleware(['auth:sanctum'])->prefix('settlement')->name('settlement.')->group(function () {
-    Route::post('index', [SettlementController::class, 'index']);
+    Route::post('transactions', [SettlementController::class, 'transactions']);
+    Route::post('checkWithdrawal', [SettlementController::class, 'checkWithdrawal']);
     Route::post('makeWithdrawal', [SettlementController::class, 'makeWithdrawal']);
     Route::post('processWithdrawal', [SettlementController::class, 'processWithdrawal']);
 });

@@ -35,7 +35,7 @@ class PaymentController extends Controller
                 'status' => 0
             ]);
 
-            $orderId = 'TRX-' . $reservation->id . '-' . date('YmdHis'); // TRX-[USER_ID]-[SERVICE_ID]-[BOOKING_ID]-[DATE]
+            $orderId = 'TRX-' . $reservation->id . '-' . date('YmdHis');
             $hashed_string = hash_hmac('SHA256', $secretKey . $detail . $amount . $orderId, $secretKey);
 
             Payment::create([
@@ -188,61 +188,5 @@ class PaymentController extends Controller
                 'message' => $th->getMessage()
             ]);
         }
-    }
-
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Payment $payment)
-    {
-        //
     }
 }
