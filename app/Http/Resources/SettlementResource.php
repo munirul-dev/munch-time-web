@@ -20,8 +20,8 @@ class SettlementResource extends JsonResource
             "user_name" => $this->user->name,
             "amount" => $this->amount,
             "status" => $this->status,
-            "created_at" => date('Y-m-d H:i:s', strtotime($this->created_at)),
-            "updated_at" => date('Y-m-d H:i:s', strtotime($this->updated_at)),
+            "created_at" => date('d/m/Y h:i A', strtotime($this->created_at)),
+            "updated_at" => date('d/m/Y h:i A', strtotime($this->updated_at)),
         ];
     }
 }
