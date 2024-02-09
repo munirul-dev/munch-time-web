@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             StudentSeeder::class,
             MenuSeeder::class,
+            ReservationSeeder::class,
         ]);
     }
 }
