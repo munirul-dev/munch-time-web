@@ -21,6 +21,7 @@ class SettlementResource extends JsonResource
             "amount" => $this->amount,
             "status" => $this->status,
             "created_at" => date('d/m/Y h:i A', strtotime($this->created_at)),
+            "created_at_date" => date('d/m/Y', strtotime($this->created_at)),
             "updated_at" => date('d/m/Y h:i A', strtotime($this->updated_at)),
         ];
     }

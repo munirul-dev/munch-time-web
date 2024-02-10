@@ -78,7 +78,7 @@ class SettlementController extends Controller
         ], 200);
     }
 
-    public function makeWithdrawal(Request $request)
+    public function makeWithdrawal()
     {
         $appliedSettlement = auth()->user()->settlements->pluck('payment_data');
 
@@ -108,7 +108,6 @@ class SettlementController extends Controller
                 'success' => true,
             ], 201);
         }
-
     }
 
     public function processWithdrawal(Request $request)
